@@ -1,6 +1,6 @@
 package uk.gov.dwp.maze.gui.service;
 
-import uk.gov.dwp.maze.domain.Maze;
+import uk.gov.dwp.maze.domain.MazeDataSet;
 import uk.gov.dwp.maze.gui.MazeComponent;
 
 import java.util.function.Function;
@@ -11,5 +11,5 @@ import java.util.function.Function;
  */
 public interface MazeUIComponentService {
     MazeComponent getMazeComponent();
-    interface TransformMazeDataIntoUIComponent extends Function<Maze,MazeComponent>{};
+    interface TransformMazeDataIntoUIComponent extends Function<MazeDataSet,MazeComponent>{};
 }

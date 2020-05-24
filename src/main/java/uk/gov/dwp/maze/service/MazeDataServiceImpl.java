@@ -2,7 +2,7 @@ package uk.gov.dwp.maze.service;
 
 import org.springframework.stereotype.Service;
 import uk.gov.dwp.maze.config.MazeConfiguration;
-import uk.gov.dwp.maze.domain.Maze;
+import uk.gov.dwp.maze.domain.MazeDataSet;
 import uk.gov.dwp.maze.domain.MazeSpace;
 import uk.gov.dwp.maze.exception.InvalidMazeException;
 import uk.gov.dwp.maze.factory.MazeFactory;
@@ -23,7 +23,7 @@ public class MazeDataServiceImpl implements MazeDataService {
     }
 
     @Override
-    public Maze getMazeData() {
+    public MazeDataSet getMazeData() {
         return transformTextDataToMaze()
                 .apply(buildInputStream()
                         .apply("/"+mazeConfiguration.getFilePath()));
@@ -31,7 +31,7 @@ public class MazeDataServiceImpl implements MazeDataService {
 
     TransformTextDataToMaze transformTextDataToMaze() {
         return (inputStream) -> {
-            Maze maze = new Maze();
+            MazeDataSet maze = new MazeDataSet();
             int rowCounter = 0;
             int colCounter = 0;
             try {
@@ -65,7 +65,7 @@ public class MazeDataServiceImpl implements MazeDataService {
         return filePath -> MazeDataServiceImpl.class.getResourceAsStream(filePath);
     }
 
-    private void validateBlockAndAssignStartAndEndMazeSpace(MazeSpace mazeSpace, Maze maze) {
+    private void validateBlockAndAssignStartAndEndMazeSpace(MazeSpace mazeSpace, MazeDataSet maze) {
         if(mazeSpace.getBlockType().equals(MazeSpaceType.StartSpace)) {
             if(maze.getStartMazeSpace() !=null) throw new InvalidMazeException("multiple start found, bad file");
             else maze.setStartMazeSpace(mazeSpace);

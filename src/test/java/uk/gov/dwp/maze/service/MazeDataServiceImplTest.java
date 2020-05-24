@@ -1,12 +1,11 @@
 package uk.gov.dwp.maze.service;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import uk.gov.dwp.maze.config.MazeConfiguration;
-import uk.gov.dwp.maze.domain.Maze;
+import uk.gov.dwp.maze.domain.MazeDataSet;
 import uk.gov.dwp.maze.exception.InvalidMazeException;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +25,7 @@ public class MazeDataServiceImplTest {
         when(mazeConfiguration.getRow()).thenReturn("15");
         when(mazeConfiguration.getFilePath()).thenReturn("Maze1.txt");
         mazeDataService = new MazeDataServiceImpl(mazeConfiguration);
-        Maze maze = mazeDataService.getMazeData();
+        MazeDataSet maze = mazeDataService.getMazeData();
         assertEquals(225, maze.getMazeSpaces().size());
         assertNotNull(maze.getExitMazeSpace());
         assertNotNull(maze.getStartMazeSpace());

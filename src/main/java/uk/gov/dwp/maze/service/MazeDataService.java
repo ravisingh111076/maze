@@ -1,11 +1,11 @@
 package uk.gov.dwp.maze.service;
-import uk.gov.dwp.maze.domain.Maze;
+import uk.gov.dwp.maze.domain.MazeDataSet;
 import java.io.InputStream;
 import java.util.function.Function;
 
 public interface MazeDataService {
-    Maze getMazeData();
+    MazeDataSet getMazeData();
     interface BuildInputStream extends Function<String,InputStream>{};
-    interface TransformTextDataToMaze extends Function<InputStream, Maze> {};
+    interface TransformTextDataToMaze extends Function<InputStream, MazeDataSet> {};
 
 }

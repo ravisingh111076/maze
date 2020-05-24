@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-public class Maze {
+public class MazeDataSet {
     @Setter
     @Getter
     private MazeSpace startMazeSpace;

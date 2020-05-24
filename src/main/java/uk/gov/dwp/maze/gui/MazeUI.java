@@ -14,18 +14,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Optional;
 
+
 @Component
 public class MazeUI extends JFrame implements ActionListener {
+    //TODO - need to improve.
     private JTextField coordinateField;
     private String displayNote = "Object at (%s,%s) is %s";
     private MazeNavigator path;
     //service builds maze display component
     private final MazeUIComponentService mazeUIComponentService;
     private MazeComponent mazeComponent;
+    MazeKeyAction mazeKeyAction;
 
     public MazeUI(MazeUIComponentService mazeUIComponentService) {
         this.mazeUIComponentService = mazeUIComponentService;
-        this.addKeyListener(new MazeKeyAction());
+        this.mazeKeyAction = new MazeKeyAction();
+        this.addKeyListener(mazeKeyAction);
     }
 
     private JPanel buildMazePanel() {
@@ -52,7 +56,7 @@ public class MazeUI extends JFrame implements ActionListener {
         userPanel.add(label, BorderLayout.BEFORE_LINE_BEGINS);
         userPanel.add(coordinateField, BorderLayout.CENTER);
         JButton findButton = new JButton("Find");
-        JButton goButton = new JButton("Go");
+        JButton goButton = new JButton("Click me before resume maze");
         findButton.addActionListener(this);
         goButton.addActionListener(this);
         userPanel.add(findButton, BorderLayout.EAST);
@@ -106,7 +110,9 @@ public class MazeUI extends JFrame implements ActionListener {
                         String.valueOf(mazeSpace.getYCoordinate()),
                         displayText}));
             } else {
-                this.setFocusable(true);
+                this.requestFocus();
+              //  this.addKeyListener(mazeKeyAction);
+                //this.setFocusable(true);
                 this.repaint();
             }
         }

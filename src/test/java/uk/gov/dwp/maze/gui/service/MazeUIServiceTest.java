@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import uk.gov.dwp.maze.domain.Maze;
+import uk.gov.dwp.maze.domain.MazeDataSet;
 import uk.gov.dwp.maze.domain.MazeSpace;
 import uk.gov.dwp.maze.domain.MazeSpaceType;
 import uk.gov.dwp.maze.factory.MazeFactory;
@@ -29,7 +29,7 @@ public class MazeUIServiceTest {
 
     @Test
     public void testGetMazeComponent_WhenMazeDataServiceReturnValidMaze() {
-        Maze maze = new Maze();
+        MazeDataSet maze = new MazeDataSet();
         MazeSpace startSpace = MazeFactory.buildMazeBlock(
                 MazeSpaceType.EndSpace.getValue(), 0, 14);
         MazeSpace endSpace = MazeFactory.buildMazeBlock(
