@@ -6,6 +6,6 @@ import java.util.function.Function;
 public interface MazeDataService {
     MazeDataSet getMazeData();
     interface BuildInputStream extends Function<String,InputStream>{};
-    interface TransformTextDataToMaze extends Function<InputStream, MazeDataSet> {};
+    interface TransformTextDataToMazeDataSet extends Function<InputStream, MazeDataSet> {};
 
 }

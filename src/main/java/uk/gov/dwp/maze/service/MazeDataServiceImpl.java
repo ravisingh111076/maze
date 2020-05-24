@@ -24,12 +24,12 @@ public class MazeDataServiceImpl implements MazeDataService {
 
     @Override
     public MazeDataSet getMazeData() {
-        return transformTextDataToMaze()
+        return transformTextDataToMazeDataSet()
                 .apply(buildInputStream()
                         .apply("/"+mazeConfiguration.getFilePath()));
     }
 
-    TransformTextDataToMaze transformTextDataToMaze() {
+    TransformTextDataToMazeDataSet transformTextDataToMazeDataSet() {
         return (inputStream) -> {
             MazeDataSet maze = new MazeDataSet();
             int rowCounter = 0;

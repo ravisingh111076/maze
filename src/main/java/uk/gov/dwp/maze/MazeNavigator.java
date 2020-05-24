@@ -1,7 +1,7 @@
 package uk.gov.dwp.maze;
 
 import uk.gov.dwp.maze.gui.MazeSpaceComponent;
-import uk.gov.dwp.maze.gui.MazeComponent;
+import uk.gov.dwp.maze.gui.MazeComponentDataSet;
 import uk.gov.dwp.maze.domain.MazeSpaceType;
 
 import java.awt.*;
@@ -9,36 +9,36 @@ import java.util.Optional;
 
 public class MazeNavigator {
     MazeSpaceComponent currentMazeComp;
-    MazeComponent mazeComponent;
+    MazeComponentDataSet mazeComponentDataSet;
     private String leftSign ="<-";
     private String rightSign = "->";
     private String generalSign = "|";
 
-    public MazeNavigator(MazeComponent mazeComponent) {
-        this.currentMazeComp = mazeComponent.getStartMazeSpaceComponent();
-        this.mazeComponent = mazeComponent;
+    public MazeNavigator(MazeComponentDataSet mazeComponentDataSet) {
+        this.currentMazeComp = mazeComponentDataSet.getStartMazeSpaceComponent();
+        this.mazeComponentDataSet = mazeComponentDataSet;
     }
 
     public Optional<MazeSpaceComponent> moveLeft() {
-        MazeSpaceComponent leftMazeSpaceComponent = mazeComponent.getMazeSpaceComponents().get(currentIndex() - 1);
+        MazeSpaceComponent leftMazeSpaceComponent = mazeComponentDataSet.getMazeSpaceComponents().get(currentIndex() - 1);
         return canMove(leftMazeSpaceComponent) ?
                 Optional.of(setCurrentMazeComp(leftMazeSpaceComponent, leftSign, Color.red)):Optional.empty();
     }
 
     public Optional<MazeSpaceComponent> moveRight() {
-        MazeSpaceComponent rightMazeSpaceComponent = mazeComponent.getMazeSpaceComponents().get(currentIndex() + 1);
+        MazeSpaceComponent rightMazeSpaceComponent = mazeComponentDataSet.getMazeSpaceComponents().get(currentIndex() + 1);
         return canMove(rightMazeSpaceComponent) ?
                 Optional.of(setCurrentMazeComp(rightMazeSpaceComponent, rightSign, Color.red)):Optional.empty();
     }
 
     public Optional<MazeSpaceComponent> moveUp() {
-        MazeSpaceComponent UpMaze = mazeComponent.getMazeSpaceComponents().get(currentMazeComp.getMazeSpace().getXCoordinate() +
+        MazeSpaceComponent UpMaze = mazeComponentDataSet.getMazeSpaceComponents().get(currentMazeComp.getMazeSpace().getXCoordinate() +
                 (currentMazeComp.getMazeSpace().getYCoordinate()-1) * 15);
         return canMove(UpMaze) ? Optional.of(setCurrentMazeComp(UpMaze, generalSign, Color.red)): Optional.empty();
     }
 
     public Optional<MazeSpaceComponent> moveDown() {
-        MazeSpaceComponent unit = mazeComponent.getMazeSpaceComponents().get(currentMazeComp.getMazeSpace().getXCoordinate() +
+        MazeSpaceComponent unit = mazeComponentDataSet.getMazeSpaceComponents().get(currentMazeComp.getMazeSpace().getXCoordinate() +
                 (currentMazeComp.getMazeSpace().getYCoordinate() + 1) * 15);
         return canMove(unit) ? Optional.of(setCurrentMazeComp(unit, generalSign, Color.red)): Optional.empty();
     }

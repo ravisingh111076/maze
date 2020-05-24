@@ -2,7 +2,7 @@ package uk.gov.dwp.maze.gui.service;
 
 import org.springframework.stereotype.Component;
 import uk.gov.dwp.maze.gui.MazeSpaceComponent;
-import uk.gov.dwp.maze.gui.MazeComponent;
+import uk.gov.dwp.maze.gui.MazeComponentDataSet;
 import uk.gov.dwp.maze.service.MazeDataService;
 
 import java.awt.*;
@@ -19,7 +19,7 @@ public class MazeUIComponentComponentServiceImpl implements MazeUIComponentServi
     }
 
     @Override
-    public MazeComponent getMazeComponent() {
+    public MazeComponentDataSet getMazeComponent() {
         return transformMazeDataIntoUIComponent().apply(mazeDataService.getMazeData());
     }
 
@@ -29,7 +29,7 @@ public class MazeUIComponentComponentServiceImpl implements MazeUIComponentServi
             maze.getMazeSpaces().stream().forEachOrdered(mazeBlock -> {
                 blocks.add(MazeSpaceComponent.builder().mazeSpace(mazeBlock).color(Color.BLACK).build());
             });
-            return MazeComponent.builder()
+            return MazeComponentDataSet.builder()
                     .startMazeSpaceComponent(MazeSpaceComponent.builder().mazeSpace(maze.getStartMazeSpace())
                             .color(Color.red).build())
                     .exitMazeSpaceComponent(MazeSpaceComponent.builder().mazeSpace(maze.getExitMazeSpace())

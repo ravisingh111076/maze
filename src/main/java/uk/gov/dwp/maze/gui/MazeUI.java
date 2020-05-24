@@ -23,7 +23,7 @@ public class MazeUI extends JFrame implements ActionListener {
     private MazeNavigator path;
     //service builds maze display component
     private final MazeUIComponentService mazeUIComponentService;
-    private MazeComponent mazeComponent;
+    private MazeComponentDataSet mazeComponentDataSet;
     MazeKeyAction mazeKeyAction;
 
     public MazeUI(MazeUIComponentService mazeUIComponentService) {
@@ -36,7 +36,7 @@ public class MazeUI extends JFrame implements ActionListener {
         //Maze area
         JPanel mazePanel = new JPanel();
         mazePanel.setLayout(new GridLayout(15, 15));
-        mazeComponent.getMazeSpaceComponents().stream().forEachOrdered(mazeBlock -> {
+        mazeComponentDataSet.getMazeSpaceComponents().stream().forEachOrdered(mazeBlock -> {
                     mazePanel.add(mazeBlock);
                 }
         );
@@ -49,9 +49,9 @@ public class MazeUI extends JFrame implements ActionListener {
         JLabel label = new JLabel("Replace (X,Y),start(0,0)");
 
         coordinateField = new JTextField(format(new String[]{
-                String.valueOf(mazeComponent.getStartMazeSpaceComponent().getMazeSpace().getXCoordinate()),
-                String.valueOf(mazeComponent.getStartMazeSpaceComponent().getMazeSpace().getYCoordinate()),
-                mazeComponent.getStartMazeSpaceComponent().getMazeSpace().getFace()}));
+                String.valueOf(mazeComponentDataSet.getStartMazeSpaceComponent().getMazeSpace().getXCoordinate()),
+                String.valueOf(mazeComponentDataSet.getStartMazeSpaceComponent().getMazeSpace().getYCoordinate()),
+                mazeComponentDataSet.getStartMazeSpaceComponent().getMazeSpace().getFace()}));
 
         userPanel.add(label, BorderLayout.BEFORE_LINE_BEGINS);
         userPanel.add(coordinateField, BorderLayout.CENTER);
@@ -65,8 +65,8 @@ public class MazeUI extends JFrame implements ActionListener {
     }
 
     public void display() {
-        this.mazeComponent = mazeUIComponentService.getMazeComponent();
-        this.path = new MazeNavigator(this.mazeComponent);
+        this.mazeComponentDataSet = mazeUIComponentService.getMazeComponent();
+        this.path = new MazeNavigator(this.mazeComponentDataSet);
         JPanel outerPanel = new JPanel(new BorderLayout());
         //create user input area
         outerPanel.add(buildUserInputPanel(), BorderLayout.BEFORE_FIRST_LINE);
@@ -101,7 +101,7 @@ public class MazeUI extends JFrame implements ActionListener {
             if (((JButton) e.getSource()).getText().equals("Find")) {
                 int[] xy = extractXYFromText();
                 int blockIndex = xy[0] + xy[1] * 15;
-                MazeSpace mazeSpace = mazeComponent.getMazeSpaceComponents().get(blockIndex).getMazeSpace();
+                MazeSpace mazeSpace = mazeComponentDataSet.getMazeSpaceComponents().get(blockIndex).getMazeSpace();
                 String displayText = mazeSpace.getFace();
                 if (mazeSpace.getBlockType().equals(MazeSpaceType.emptySpace))
                     displayText = "EmptySpace";

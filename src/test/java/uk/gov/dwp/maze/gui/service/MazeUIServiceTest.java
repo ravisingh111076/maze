@@ -9,7 +9,7 @@ import uk.gov.dwp.maze.domain.MazeDataSet;
 import uk.gov.dwp.maze.domain.MazeSpace;
 import uk.gov.dwp.maze.domain.MazeSpaceType;
 import uk.gov.dwp.maze.factory.MazeFactory;
-import uk.gov.dwp.maze.gui.MazeComponent;
+import uk.gov.dwp.maze.gui.MazeComponentDataSet;
 import uk.gov.dwp.maze.service.MazeDataService;
 
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class MazeUIServiceTest {
         maze.setStartMazeSpace(startSpace);
         maze.getMazeSpaces().addAll(Arrays.asList(startSpace,endSpace));
         when(mazeDataService.getMazeData()).thenReturn(maze);
-        MazeComponent component = mazeUIComponentComponentService.getMazeComponent();
+        MazeComponentDataSet component = mazeUIComponentComponentService.getMazeComponent();
         assertEquals(2, component.getMazeSpaceComponents().size());
     }
 }

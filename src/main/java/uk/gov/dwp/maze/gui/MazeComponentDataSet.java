@@ -10,11 +10,9 @@ import java.util.List;
 @Builder
 @Setter
 @Getter
-public class MazeComponent {
-
+public class MazeComponentDataSet {
     private MazeSpaceComponent startMazeSpaceComponent;
-
     private MazeSpaceComponent exitMazeSpaceComponent;
-
+    @Builder.Default
     private List<MazeSpaceComponent> mazeSpaceComponents = new ArrayList<>();
 }

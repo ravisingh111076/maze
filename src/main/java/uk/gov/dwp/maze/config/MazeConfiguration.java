@@ -10,11 +10,9 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties
 public class MazeConfiguration {
-
     @Setter
     @Getter
     String filePath;
-
     @Getter
     @Setter
     String col;
