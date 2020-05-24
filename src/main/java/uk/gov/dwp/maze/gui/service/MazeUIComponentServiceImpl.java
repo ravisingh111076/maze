@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class MazeUIComponentComponentServiceImpl implements MazeUIComponentService {
+public class MazeUIComponentServiceImpl implements MazeUIComponentService {
 
     private final MazeDataService mazeDataService;
 
-    public MazeUIComponentComponentServiceImpl(MazeDataService mazeDataService) {
+    public MazeUIComponentServiceImpl(MazeDataService mazeDataService) {
         this.mazeDataService = mazeDataService;
     }
 

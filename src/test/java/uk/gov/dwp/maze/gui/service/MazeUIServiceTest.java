@@ -25,7 +25,7 @@ public class MazeUIServiceTest {
     MazeDataService mazeDataService;
 
     @InjectMocks
-    MazeUIComponentComponentServiceImpl mazeUIComponentComponentService;
+    MazeUIComponentServiceImpl mazeUIComponentComponentService;
 
     @Test
     public void testGetMazeComponent_WhenMazeDataServiceReturnValidMaze() {
