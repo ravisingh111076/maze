@@ -1,13 +1,21 @@
 # Maze Explorer Application.
 
 ### Play Rule
+Use case 1:
+replace coordinate in the text area, dont change text, click find button
+Use case 2:
 Use key left/right/up/down key to navigate.
 
 ### Known Issue
-Refocus doesn't work properly.Restart for navigation if needed. 
+-By default focus will be on maze.
+-Refocus on maze doesn't work properly.
+-CLick on button to navigation on maze. 
+- Unit test don't cover all scenario.
 
 ### Assumption
 - Maze txt file should exist under resource.
+- you can change file name.
+- look ```application.properties file```
 
 ### Stack
 - Java 8
@@ -24,18 +32,21 @@ Here is some components below.
 
 - MazeDataService
   Purpose - Creates maze data set.
-  - deals with reading txt data
+  - Deals with reading txt data
   - Builds maze data set
   - Perform basic validation.
   - will throw InvalidMazeException.
  
 - MazeUIComponentService
-  Responsible for created Swing based MazeVisualComponent.
-  - consumes maze data set
-  - transforms into smallest maze ui unit.
+  Create MazeComponentDataSet from MazeDataSet.
+  - Consumes maze data set
+  - transforms into smallest visual maze unit.(JLabel)
   
 - MazeNavigator
   Responsible handling navigation.
+  
+- MazeUI
+  Builds Maze GUI, listens to all action.
 
 ### Compile and Run from command
 ```mvn clean install```

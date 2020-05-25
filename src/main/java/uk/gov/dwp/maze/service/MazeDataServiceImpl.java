@@ -7,6 +7,8 @@ import uk.gov.dwp.maze.domain.MazeSpace;
 import uk.gov.dwp.maze.exception.InvalidMazeException;
 import uk.gov.dwp.maze.factory.MazeFactory;
 import uk.gov.dwp.maze.domain.MazeSpaceType;
+
+import java.util.Optional;
 import java.util.Scanner;
 
 @Service

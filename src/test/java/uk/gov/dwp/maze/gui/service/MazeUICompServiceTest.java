@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class MazeUIServiceTest {
+public class MazeUICompServiceTest {
 
     @Mock
     MazeDataService mazeDataService;
@@ -38,7 +38,7 @@ public class MazeUIServiceTest {
         maze.setStartMazeSpace(startSpace);
         maze.getMazeSpaces().addAll(Arrays.asList(startSpace,endSpace));
         when(mazeDataService.getMazeData()).thenReturn(maze);
-        MazeComponentDataSet component = mazeUIComponentComponentService.getMazeComponent();
+        MazeComponentDataSet component = mazeUIComponentComponentService.getMazeComponent().get();
         assertEquals(2, component.getMazeSpaceComponents().size());
     }
 }

@@ -13,10 +13,14 @@ public class MazeNavigator {
     private String leftSign ="<-";
     private String rightSign = "->";
     private String generalSign = "|";
+    private Integer gridCol;
+    private Integer gridRow;
 
-    public MazeNavigator(MazeComponentDataSet mazeComponentDataSet) {
+    public MazeNavigator(MazeComponentDataSet mazeComponentDataSet, Integer gridCol, Integer gridRow) {
         this.currentMazeComp = mazeComponentDataSet.getStartMazeSpaceComponent();
         this.mazeComponentDataSet = mazeComponentDataSet;
+        this.gridCol = gridCol;
+        this.gridRow = gridRow;
     }
 
     public Optional<MazeSpaceComponent> moveLeft() {
@@ -33,13 +37,13 @@ public class MazeNavigator {
 
     public Optional<MazeSpaceComponent> moveUp() {
         MazeSpaceComponent UpMaze = mazeComponentDataSet.getMazeSpaceComponents().get(currentMazeComp.getMazeSpace().getXCoordinate() +
-                (currentMazeComp.getMazeSpace().getYCoordinate()-1) * 15);
+                (currentMazeComp.getMazeSpace().getYCoordinate()-1) * gridCol);
         return canMove(UpMaze) ? Optional.of(setCurrentMazeComp(UpMaze, generalSign, Color.red)): Optional.empty();
     }
 
     public Optional<MazeSpaceComponent> moveDown() {
         MazeSpaceComponent unit = mazeComponentDataSet.getMazeSpaceComponents().get(currentMazeComp.getMazeSpace().getXCoordinate() +
-                (currentMazeComp.getMazeSpace().getYCoordinate() + 1) * 15);
+                (currentMazeComp.getMazeSpace().getYCoordinate() + 1) * gridCol);
         return canMove(unit) ? Optional.of(setCurrentMazeComp(unit, generalSign, Color.red)): Optional.empty();
     }
 
@@ -57,7 +61,7 @@ public class MazeNavigator {
 
     private int currentIndex() {
         return currentMazeComp.getMazeSpace().getXCoordinate() +
-                currentMazeComp.getMazeSpace().getYCoordinate() * 15;
+                currentMazeComp.getMazeSpace().getYCoordinate() * gridCol;
     }
 
     private boolean canMove(MazeSpaceComponent mazeSpaceComponent) {

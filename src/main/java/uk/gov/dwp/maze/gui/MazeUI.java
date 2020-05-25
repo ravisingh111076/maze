@@ -1,7 +1,9 @@
 package uk.gov.dwp.maze.gui;
-
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import uk.gov.dwp.maze.MazeNavigator;
+import uk.gov.dwp.maze.config.MazeConfiguration;
 import uk.gov.dwp.maze.gui.service.MazeUIComponentService;
 import uk.gov.dwp.maze.domain.MazeSpace;
 import uk.gov.dwp.maze.domain.MazeSpaceType;
@@ -25,17 +27,23 @@ public class MazeUI extends JFrame implements ActionListener {
     private final MazeUIComponentService mazeUIComponentService;
     private MazeComponentDataSet mazeComponentDataSet;
     MazeKeyAction mazeKeyAction;
+    Integer gridCol;
+    Integer gridRow;
+    static final Logger LOGGER = LogManager.getLogger(MazeUI.class);
 
-    public MazeUI(MazeUIComponentService mazeUIComponentService) {
+    public MazeUI(MazeUIComponentService mazeUIComponentService,
+                  MazeConfiguration configuration) {
         this.mazeUIComponentService = mazeUIComponentService;
         this.mazeKeyAction = new MazeKeyAction();
         this.addKeyListener(mazeKeyAction);
+        this.gridCol = Integer.parseInt(configuration.getCol());
+        this.gridRow = Integer.parseInt(configuration.getRow());
     }
 
     private JPanel buildMazePanel() {
         //Maze area
         JPanel mazePanel = new JPanel();
-        mazePanel.setLayout(new GridLayout(15, 15));
+        mazePanel.setLayout(new GridLayout(gridRow, gridCol));
         mazeComponentDataSet.getMazeSpaceComponents().stream().forEachOrdered(mazeBlock -> {
                     mazePanel.add(mazeBlock);
                 }
@@ -65,15 +73,21 @@ public class MazeUI extends JFrame implements ActionListener {
     }
 
     public void display() {
-        this.mazeComponentDataSet = mazeUIComponentService.getMazeComponent();
-        this.path = new MazeNavigator(this.mazeComponentDataSet);
+        Optional<MazeComponentDataSet> optionalMazeComponentDataSet = mazeUIComponentService.getMazeComponent();
+        if(!optionalMazeComponentDataSet.isPresent()) {
+            LOGGER.error("Not a valid maze");
+            this.dispose();
+            System.exit(1);
+        }
+        this.mazeComponentDataSet = optionalMazeComponentDataSet.get();
+        this.path = new MazeNavigator(this.mazeComponentDataSet, gridCol, gridRow);
         JPanel outerPanel = new JPanel(new BorderLayout());
         //create user input area
         outerPanel.add(buildUserInputPanel(), BorderLayout.BEFORE_FIRST_LINE);
         //create maze
         outerPanel.add(buildMazePanel());
         this.add(outerPanel);
-        this.setPreferredSize(new Dimension(600, 600));
+        this.setPreferredSize(new Dimension(gridCol*40, gridRow*40));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);
@@ -100,7 +114,14 @@ public class MazeUI extends JFrame implements ActionListener {
         if (e.getSource() instanceof JButton) {
             if (((JButton) e.getSource()).getText().equals("Find")) {
                 int[] xy = extractXYFromText();
-                int blockIndex = xy[0] + xy[1] * 15;
+                if(!(between(xy[0], 0,gridCol-1) &&  between(xy[1], 0,gridRow-1))) {
+                    JOptionPane.showMessageDialog(this,
+                            "Not valid coordinate max("+ gridCol +"," +gridRow+")",
+                            "Maze Message",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                int blockIndex = xy[0] + xy[1] * gridCol;
                 MazeSpace mazeSpace = mazeComponentDataSet.getMazeSpaceComponents().get(blockIndex).getMazeSpace();
                 String displayText = mazeSpace.getFace();
                 if (mazeSpace.getBlockType().equals(MazeSpaceType.emptySpace))
@@ -111,8 +132,6 @@ public class MazeUI extends JFrame implements ActionListener {
                         displayText}));
             } else {
                 this.requestFocus();
-              //  this.addKeyListener(mazeKeyAction);
-                //this.setFocusable(true);
                 this.repaint();
             }
         }
@@ -136,6 +155,10 @@ public class MazeUI extends JFrame implements ActionListener {
                     "Maze Message",
                     JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    private static boolean between(int i, int minValueInclusive, int maxValueInclusive) {
+        return (i >= minValueInclusive && i <= maxValueInclusive);
     }
 
     class MazeKeyAction implements KeyListener {
