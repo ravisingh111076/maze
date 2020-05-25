@@ -1,9 +1,5 @@
 package uk.gov.dwp.maze.gui;
-
-import uk.gov.dwp.maze.gui.MazeSpaceComponent;
-import uk.gov.dwp.maze.gui.MazeComponentDataSet;
 import uk.gov.dwp.maze.domain.MazeSpaceType;
-
 import java.awt.*;
 import java.util.Optional;
 
