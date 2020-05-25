@@ -1,4 +1,4 @@
-package uk.gov.dwp.maze;
+package uk.gov.dwp.maze.gui;
 
 import uk.gov.dwp.maze.gui.MazeSpaceComponent;
 import uk.gov.dwp.maze.gui.MazeComponentDataSet;

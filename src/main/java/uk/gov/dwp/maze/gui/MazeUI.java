@@ -2,7 +2,6 @@ package uk.gov.dwp.maze.gui;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
-import uk.gov.dwp.maze.MazeNavigator;
 import uk.gov.dwp.maze.config.MazeConfiguration;
 import uk.gov.dwp.maze.gui.service.MazeUIComponentService;
 import uk.gov.dwp.maze.domain.MazeSpace;
