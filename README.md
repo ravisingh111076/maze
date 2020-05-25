@@ -3,12 +3,12 @@
 ## Play Rule
 
 Use case 1:<br/>
-In textArea displaying ```Object at (3,3) is S``` change only coordinates please
-click find button<br/>
+In textArea displaying ```Object at (3,3) is S``` please change only coordinates
+and click find button<br/>
 
 Use case 2:<br/>
+Use key left/right/up/down key to navigate.<br/>
 Click on Button which says "Click me before resume maze"
-Use key left/right/up/down key to navigate.
 
 ## Known Issue
 - By default focus will be on maze.
@@ -16,8 +16,8 @@ Use key left/right/up/down key to navigate.
 - Unit test don't cover all scenario.
 
 ## Assumption
-- Maze txt file should exist under resource.
-- file name, col, row lengths are configurable.
+- Maze1.txt file should exist under resource.
+- filename, col, row lengths are configurable.
 - look ```application.properties file```
 
 ## Stack
@@ -29,20 +29,18 @@ Use key left/right/up/down key to navigate.
 
 ## Architecture/Approach
 
-Application has been built using java 8, spring boot, swing and lombok,
-which provides some of key features such as dependency injection, builders etc out of box.
+Application has been built using java 8, spring boot, swing and lombok.<br/>
 Here are some components/services below.
 
 - MazeDataService
-  
-  Purpose - Creates maze data set.
+   creates maze data set.
   - Deals with reading txt data
   - Builds maze data set
   - Perform basic validation.
   - will throw InvalidMazeException.
  
 - MazeUIComponentService<br/>
-  Create MazeComponentDataSet from MazeDataSet.
+  create MazeComponentDataSet from MazeDataSet.
   - Consumes maze data set
   - transforms into smallest visual maze unit.(JLabel)
   
